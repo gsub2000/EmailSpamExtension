@@ -9,7 +9,7 @@ console.log("hey its the bg page");
 // );
 
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+    function(request, sender, response) {
         console.log(request); 
         var emails = JSON.stringify({msg: request})
 
@@ -20,12 +20,14 @@ chrome.runtime.onMessage.addListener(
             encoding: 'UTF-8',
             success: function (resp){
                 console.log(resp);
+                response(resp)
             },
             error: function(er,a,b){
                 console.log("error has occurred");
             }
             });
+            return true;
         
         
-            sendResponse({ message: "Background has received that message" });
+            // sendResponse({ message: "Background has received that message" });
         });
