@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
-import sklearn
+from sklearn import svm
 import pandas
 import pymongo
 
@@ -27,21 +27,35 @@ def example():
         except:
             break
 
+    data = [
+        [0],
+        [1]
+    ]
+
+    s = ['flag', 'safe']
+
+    rec_model = svm.SVC()
+    rec_model.fit(data, s)
+
+    flagged = []
+    for email in emails:
+        values = [getNum(email)]
+        print(values)
+        process = rec_model.predict([values])
+        if process[0] == 'flag':
+            flagged.append(email['email'])
+
+
+    # link_safety = rec_model.predict([[5,2,5,2,5]])
+    # data.append([5,2,5,2,5])
+    # s.append(link_safety[0])
     
-    client = pymongo.MongoClient("mongodb+srv://gayatrs:Gs191052044!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
-    db = client['EmailsData']
-    collection = db['Emails']
+    return json.dumps(flagged)
 
-    # doc = {
-    #     "sender": "me",
-    #     "email" : "me@gmail.com"
-    # }
-    for e in emails:
-        collection.insert_one(e)
-
-
-
-    return json.dumps("message")
+def getNum(email):
+    if email['status'] == 'unread':
+        return 0
+    return 1
 
 
 app.run(host="127.0.0.1")
