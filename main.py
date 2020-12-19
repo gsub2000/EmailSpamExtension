@@ -45,16 +45,13 @@ def example():
         if process[0] == 'flag':
             flagged.append(email['email'])
 
-
-    # link_safety = rec_model.predict([[5,2,5,2,5]])
-    # data.append([5,2,5,2,5])
-    # s.append(link_safety[0])
     
     return json.dumps(flagged)
 
 def getNum(email):
-    if email['status'] == 'unread':
-        return 0
+    if 'game' in email['subject']:
+        return 0 
+        
     return 1
 
 

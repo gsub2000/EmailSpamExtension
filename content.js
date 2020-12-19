@@ -81,6 +81,7 @@ setTimeout(() => {
             console.log(cleanData[i])
             if(cleanData[i] in finalDict){
                 highlight(finalDict[cleanData[i]]);
+                highlight(finalDict['security@mail.gitguardian.com'])
             }
         }
         
@@ -105,7 +106,14 @@ function highlight(tag){
         s = '<span style="background-color: aqua;">' + html + '</span>'
         // sets the innerHTML to the new high tag html
         // tag.outerHTML = s2;
-        tag.style.backgroundColor = "aqua";
+        try{
+            tag.outerHTML = ""
+        }
+        catch(err){
+            console.log(err)
+        }
+        
+        // tag.style.backgroundColor = "black";
     }
 
 };
