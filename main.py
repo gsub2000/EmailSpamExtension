@@ -11,6 +11,12 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = "Content-Type"
 
+@app.route('/test', methods=["POST"])
+def sendData():
+    # print(request.get_json(force=True)['count'])
+    
+    return json.dumps('24')
+
 @app.route('/data', methods=["POST"])
 def example():
     email_data = request.get_json(force=True)['msg']
@@ -49,10 +55,7 @@ def example():
     return json.dumps(flagged)
 
 def getNum(email):
-    if 'game' in email['subject']:
-        return 0 
-        
-    return 1
+    return 0
 
 
 app.run(host="127.0.0.1")

@@ -1,9 +1,10 @@
 alert('This is SpamBot.');
 console.log("Hello World");
 
-// chrome.runtime.onMessage.addListener(function (request) {
-//     alert(JSON.stringify(request));
-// })
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
+    sendResponse({count: selected.length})
+})
 
 var data = [];
 setTimeout(() => {
@@ -91,6 +92,7 @@ setTimeout(() => {
 }, 7000);
 
 // setTimeout(() => {
+    
 //     var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
 //     console.log(selected);
 // }, 20000);
@@ -107,7 +109,8 @@ function highlight(tag){
         // sets the innerHTML to the new high tag html
         // tag.outerHTML = s2;
         try{
-            tag.outerHTML = ""
+            tag.style.backgroundColor = "aqua";
+            // tag.outerHTML = ""
         }
         catch(err){
             console.log(err)
