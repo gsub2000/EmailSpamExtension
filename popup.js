@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // document.getElementById('mybtn').addEventListener('click', onclick, false)
     var i = document.querySelector('button');
     if (i){
         i.addEventListener("click", onclick, false)
     }
-    // document.querySelector("button").addEventListener("click", onclick, false)
-
 
     function onclick () {
         chrome.tabs.query({currentWindow: true, active: true},

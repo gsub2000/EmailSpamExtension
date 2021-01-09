@@ -15,7 +15,8 @@ app.config['CORS_HEADERS'] = "Content-Type"
 def sendData():
     # print(request.get_json(force=True)['count'])
     
-    return json.dumps('24')
+    return json.dumps('It worked')
+
 
 @app.route('/data', methods=["POST"])
 def example():
