@@ -17,7 +17,7 @@ def sendData():
     
     return json.dumps('It worked')
 
-
+#AI MODEL STILL IN PROGRESS (WILL BE UPDATED)
 @app.route('/data', methods=["POST"])
 def example():
     email_data = request.get_json(force=True)['msg']
