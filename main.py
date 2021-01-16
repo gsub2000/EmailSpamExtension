@@ -58,5 +58,7 @@ def example():
 def getNum(email):
     return 0
 
-
-app.run(host="127.0.0.1")
+if __name__ == "__main__":
+    app.run()
+    
+# app.run(host="127.0.0.1")
