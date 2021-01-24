@@ -1,4 +1,3 @@
-alert('This is SpamBot.');
 console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
