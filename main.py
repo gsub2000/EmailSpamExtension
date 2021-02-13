@@ -14,6 +14,7 @@ app.config['CORS_HEADERS'] = "Content-Type"
 @app.route('/test', methods=["POST"])
 def sendData():
     print(request.get_json(force=True)['count'])
+    print(request.get_json(force=True)['items'])
     return json.dumps('It worked')
 
 #AI MODEL STILL IN PROGRESS (WILL BE UPDATED)
