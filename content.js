@@ -2,7 +2,8 @@ console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
-    sendResponse({count: selected.length})
+    console.log(selected.length);
+    sendResponse({count: selected.length});
 })
 
 var data = [];

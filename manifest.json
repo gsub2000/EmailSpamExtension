@@ -19,5 +19,5 @@
         "default_popup" : "popup.html",
         "default_title" : "SpamBot"
     },
-    "permissions" : ["http://127.0.0.1/*","tabs", "activeTab", "storage", "https://ajax.googleapis.com/","https://mail.google.com/mail/u/0/#inbox", "https://spam-bot-heroku.herokuapp.com/*" ]
+    "permissions" : ["http://127.0.0.1/*", "activeTab", "https://ajax.googleapis.com/","https://mail.google.com/mail/u/0/#inbox", "https://spam-bot-heroku.herokuapp.com/*" ]
 }
