@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var selectedList = [];
     
     for (let i = 0; i < selected.length; i++){
-        selectedList.push(selected.item(i));
+        selectedList.push(selected.item(i).innerHTML);
     }
 
     console.log(selectedList);
