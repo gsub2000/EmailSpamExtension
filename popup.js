@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $.ajax({
             type: 'POST',
             url: 'https://spam-bot-heroku.herokuapp.com/test',
-            data: JSON.stringify(res),
+            data: JSON.stringify({msg: res}),
             encoding: 'UTF-8',
             success: function (resp){
                 div.textContent = resp
