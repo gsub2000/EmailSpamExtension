@@ -13,7 +13,14 @@ app.config['CORS_HEADERS'] = "Content-Type"
 
 @app.route('/test', methods=["POST"])
 def sendData():
-    print(request.get_json(force=True)['msg'])
+    selected = request.get_json(force=True)['msg']
+
+    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!!!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
+    db = client['EmailsData']
+    col = db['Selected']
+    col.insert_one({'test': selected})
+
+
     return json.dumps('It worked')
 
 #AI MODEL STILL IN PROGRESS (WILL BE UPDATED)
