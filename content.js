@@ -2,8 +2,14 @@ console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
-    console.log(selected);
-    sendResponse({items: selected, count: selected.length});
+    var selectedList = [];
+    
+    for (let i = 0; i < selected.length; i++){
+        selectedList.push(selected.item(i));
+    }
+
+    // console.log(selected);
+    sendResponse({items: selectedList, count: selected.length});
 })
 
 var data = [];
