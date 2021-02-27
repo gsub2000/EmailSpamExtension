@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         selectedList.push(selected.item(i));
     }
 
-    // console.log(selected);
+    console.log(selectedList);
     sendResponse({items: selectedList, count: selected.length});
 })
 
