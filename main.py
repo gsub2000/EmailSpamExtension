@@ -5,7 +5,6 @@ from sklearn import svm
 import pandas
 import pymongo
 
-db = dict()
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -58,7 +57,7 @@ def example():
         if process[0] == 'flag':
             flagged.append(email['email'])
 
-    
+    print(flagged)
     return json.dumps(flagged)
 
 def getNum(email):
