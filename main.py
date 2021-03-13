@@ -57,7 +57,7 @@ def example():
         if process[0] == 'flag':
             flagged.append(email['email'])
 
-    print(flagged)
+    # print(flagged)
     return json.dumps(flagged)
 
 def getNum(email):
