@@ -3,17 +3,19 @@ console.log("Hello World");
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var person = document.getElementsByTagName('tr');
     for (let i = 4; i < person.length; i++){
-        var item = person.item(i)
-        var found = item.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp")
+        var item = person.item(i);
+        var found = item.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
         if (found.length > 0){
             var div = item.getElementsByClassName('yX xY ');
             console.log(div)
             for (let j = 0; j < div.length; j++){
                 // console.log(div.item(j).getElementsByClassName('afn').item(0).textContent);
-                var email = div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span')
-                console.log(div.item(j).getElementsByClassName('afn').innerHTML)
+                // var email = div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span');
+                var email = div.item(j).getElementsByClassName('bA4');
+                console.log(div.item(j).getElementsByClassName('bA4').item(0));
+                console.log(div.item(j).getElementsByClassName('afn').item(0).textContent);
                 
-                var emailID = email.item(0).innerHTML.split(' ')[3]
+                var emailID = email.item(0).innerHTML.split(' ')[3];    
                 
                 var finalEmail = emailID.substring(7, emailID.length-1);
 
@@ -26,34 +28,34 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     temp = div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[0];
                 }
                 
-                // if (email.length == 5){
-                //     dataItem = {
-                //         "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                //         "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(3).textContent,
-                //         "status" : temp,
-                //         "reply" : true,
-                //         "email" : finalEmail
-                //     }
-                // }
-                // else if (email.length == 7){
-                //     dataItem = {
-                //         "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                //         "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(5).textContent,
-                //         "status" : temp,
-                //         "reply" : true,
-                //         "email" : finalEmail
-                //     }
-                // }
-                // else{
-                //     dataItem = {
-                //         "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                //         "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(2).textContent,
-                //         "status" : temp,
-                //         "reply" : false,
-                //         "email" : finalEmail
-                //     }
-                // }
-                // console.log(dataItem)
+                if (email.length == 5){
+                    dataItem = {
+                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
+                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(3).textContent,
+                        "status" : temp,
+                        "reply" : true,
+                        "email" : finalEmail
+                    }
+                }
+                else if (email.length == 7){
+                    dataItem = {
+                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
+                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(5).textContent,
+                        "status" : temp,
+                        "reply" : true,
+                        "email" : finalEmail
+                    }
+                }
+                else{
+                    dataItem = {
+                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
+                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(2).textContent,
+                        "status" : temp,
+                        "reply" : false,
+                        "email" : finalEmail
+                    }
+                }
+                console.log(dataItem)
             }
         }
     }
@@ -65,7 +67,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     }
 
-    console.log(selectedList);
     sendResponse({items: selectedList, count: selected.length});
 })
 
