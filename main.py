@@ -12,7 +12,7 @@ app.config['CORS_HEADERS'] = "Content-Type"
 
 @app.route('/test', methods=["POST"])
 def sendData():
-    selected = request.get_json(force=True)['msg']
+    selected = request.get_json(force=True)['items']
 
     print(selected)
 
