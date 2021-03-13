@@ -69,11 +69,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     }
                 }
                 console.log(dataItem);
-                selected.push(dataItem);
+                selectedList.push(dataItem);
             }
         }
     }
-    sendResponse({items: selectedList, count: selected.length});
+    sendResponse({items: selectedList, count: selectedList.length});
 })
 
 var data = [];

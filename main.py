@@ -14,6 +14,8 @@ app.config['CORS_HEADERS'] = "Content-Type"
 def sendData():
     selected = request.get_json(force=True)['msg']
 
+    print(selected)
+
     client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
     db = client['EmailsData']
     col = db['Selected']
