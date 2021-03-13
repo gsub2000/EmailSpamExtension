@@ -14,7 +14,10 @@ app.config['CORS_HEADERS'] = "Content-Type"
 def sendData():
     selected = request.get_json(force=True)['items']
 
-    print(selected)
+    # print(selected)
+    for obj in selected:
+        print(obj)
+
 
     client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
     db = client['EmailsData']
