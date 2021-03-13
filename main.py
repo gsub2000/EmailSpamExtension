@@ -15,14 +15,14 @@ def sendData():
     selected = request.get_json(force=True)['items']
 
     # print(selected)
-    for obj in selected:
-        print(obj)
+    
 
 
     client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
     db = client['EmailsData']
     col = db['Selected']
-    col.insert_one({'test': selected})
+    for obj in selected:
+        col.insert_one(obj)
 
 
     return json.dumps('It worked')
