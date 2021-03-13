@@ -1,6 +1,7 @@
 console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    var selectedList = [];
     var person = document.getElementsByTagName('tr');
     for (let i = 4; i < person.length; i++){
         var item = person.item(i);
@@ -13,6 +14,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 // var email = div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span');
                 var email = div.item(j).getElementsByClassName('bA4');
                 console.log(div.item(j).getElementsByClassName('bA4').item(0));
+
                 console.log(div.item(j).getElementsByClassName('afn').item(0).textContent);
                 
                 var emailID = email.item(0).innerHTML.split(' ')[3];    
@@ -21,7 +23,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
                 var dataItem = {};
                 var temp = "";
-                if (div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[0] == div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent){
+                if (div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[1].trim() != "unread"){
                     temp = "read"
                 }
                 else{
@@ -30,8 +32,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 
                 if (email.length == 5){
                     dataItem = {
-                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(3).textContent,
+                        "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
                         "status" : temp,
                         "reply" : true,
                         "email" : finalEmail
@@ -39,34 +41,38 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 }
                 else if (email.length == 7){
                     dataItem = {
-                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(5).textContent,
+                        "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
                         "status" : temp,
                         "reply" : true,
                         "email" : finalEmail
                     }
                 }
                 else{
-                    dataItem = {
-                        "sender" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent,
-                        "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(2).textContent,
-                        "status" : temp,
-                        "reply" : false,
-                        "email" : finalEmail
+                    if (temp == "read"){
+                        dataItem = {
+                            "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
+                            "status" : temp,
+                            "reply" : false,
+                            "email" : finalEmail
+                        }
+                    }
+                    else{
+                        dataItem = {
+                            "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[3].trim(),
+                            "status" : temp,
+                            "reply" : false,
+                            "email" : finalEmail
+                        }
                     }
                 }
-                console.log(dataItem)
+                console.log(dataItem);
+                selected.push(dataItem);
             }
         }
     }
-    var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
-    var selectedList = [];
-    
-    for (let i = 0; i < selected.length; i++){
-        selectedList.push(selected.item(i).innerHTML);
-
-    }
-
     sendResponse({items: selectedList, count: selected.length});
 })
 
