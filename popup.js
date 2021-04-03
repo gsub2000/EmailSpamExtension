@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 chrome.tabs.sendMessage(tabs[0].id, 'hi', setChecked)
             }    
         )
-        // var bgp = chrome.extension.getBackgroundPage()
-        // var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
         
-        }
+    }
     function setChecked (res) {
         const div = document.createElement('div')
         console.log('here')

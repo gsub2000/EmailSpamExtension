@@ -10,8 +10,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             var div = item.getElementsByClassName('yX xY ');
             console.log(div)
             for (let j = 0; j < div.length; j++){
-                // console.log(div.item(j).getElementsByClassName('afn').item(0).textContent);
-                // var email = div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span');
                 var email = div.item(j).getElementsByClassName('bA4');
                 console.log(div.item(j).getElementsByClassName('bA4').item(0));
 
@@ -33,7 +31,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 if (email.length == 5){
                     dataItem = {
                         "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
-                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
+                        "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
                         "status" : temp,
                         "reply" : true,
                         "email" : finalEmail

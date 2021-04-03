@@ -14,16 +14,11 @@ app.config['CORS_HEADERS'] = "Content-Type"
 def sendData():
     selected = request.get_json(force=True)['items']
 
-    # print(selected)
-    
-
-
     client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
     db = client['EmailsData']
     col = db['Selected']
-    for obj in selected:
-        col.insert_one(obj)
-
+    for email in selected:
+        col.insert_one(email)
 
     return json.dumps('It worked')
 
@@ -43,6 +38,10 @@ def example():
             email_data = email_data[ind2+1:]
         except:
             break
+
+
+    #
+
 
     data = [
         [0],
