@@ -39,9 +39,13 @@ def example():
         except:
             break
 
-
-    #
-
+    # grab the data from the selected database table
+    # grab the data from the emails database table
+    # merge data
+    # transform data
+    # parse and tokenize data
+    # get predictive model
+    # make predictions
 
     data = [
         [0],

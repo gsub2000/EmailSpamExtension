@@ -8,13 +8,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         var found = item.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
         if (found.length > 0){
             var div = item.getElementsByClassName('yX xY ');
-            console.log(div)
             for (let j = 0; j < div.length; j++){
                 var email = div.item(j).getElementsByClassName('bA4');
-                console.log(div.item(j).getElementsByClassName('bA4').item(0));
-
-                console.log(div.item(j).getElementsByClassName('afn').item(0).textContent);
-                
                 var emailID = email.item(0).innerHTML.split(' ')[3];    
                 
                 var finalEmail = emailID.substring(7, emailID.length-1);
@@ -66,7 +61,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                         }
                     }
                 }
-                console.log(dataItem);
                 selectedList.push(dataItem);
             }
         }
@@ -90,8 +84,13 @@ setTimeout(() => {
             var emailID = email.item(0).innerHTML.split(' ')[3]
             
             var finalEmail = emailID.substring(7, emailID.length-1);
-
-            finalDict[finalEmail] = item;
+            
+            if (Object.keys(finalDict).includes(finalEmail)){
+                finalDict[finalEmail].push(item);
+            }
+            else{
+                finalDict[finalEmail] = [item];
+            }
             var dataItem = {};
             var temp = "";
             if (div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[0] == div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(1).textContent){
@@ -134,7 +133,7 @@ setTimeout(() => {
             
         }
     }
-    console.log(data)
+    console.log(Object.keys(finalDict).length)
     chrome.runtime.sendMessage(JSON.stringify(data), function(response) {
         console.log(response)
         var cleanData = []
@@ -150,8 +149,11 @@ setTimeout(() => {
         for(let i = 0; i < cleanData.length; i++){
             console.log(cleanData[i])
             if(cleanData[i] in finalDict){
-                highlight(finalDict[cleanData[i]]);
-                highlight(finalDict['security@mail.gitguardian.com'])
+                finalDict[cleanData[i]].forEach(element => {
+                    highlight(element);
+                });
+                // highlight();
+                // highlight(finalDict['security@mail.gitguardian.com'])
             }
         }
         
@@ -159,14 +161,6 @@ setTimeout(() => {
     
 
 }, 7000);
-
-// setTimeout(() => {
-    
-//     var selected = document.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
-//     console.log(selected);
-// }, 20000);
-
-
 
 function highlight(tag){
     if(tag){
