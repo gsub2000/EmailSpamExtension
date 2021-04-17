@@ -69,7 +69,9 @@ def example():
     return json.dumps(flagged)
 
 def getNum(email):
-    return 0
+    if email == "notifications@instructure.com":
+        return 0
+    return 1
 
 if __name__ == "__main__":
     app.run()

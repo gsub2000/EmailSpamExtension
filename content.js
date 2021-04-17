@@ -73,7 +73,7 @@ setTimeout(() => {
     var person = document.getElementsByTagName('tr');
     finalDict = {}
     console.log(person.length);
-    for (let i = 4; i < person.length; i++){
+    for (let i = 1; i < person.length; i++){
         var item = person.item(i);
         // highlight(item);
         var div = item.getElementsByClassName('yX xY ');
@@ -160,7 +160,7 @@ setTimeout(() => {
     });
     
 
-}, 7000);
+}, 9000);
 
 function highlight(tag){
     if(tag){
