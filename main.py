@@ -59,7 +59,7 @@ def example():
 
     flagged = []
     for email in emails:
-        values = [getNum(email)]
+        values = [getNum(email['email'])]
         print(email, values)
         process = rec_model.predict([values])
         if process[0] == 'flag':
