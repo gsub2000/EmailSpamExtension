@@ -60,7 +60,7 @@ def example():
     flagged = []
     for email in emails:
         values = [getNum(email)]
-        print(values)
+        print(email, values)
         process = rec_model.predict([values])
         if process[0] == 'flag':
             flagged.append(email['email'])
@@ -69,7 +69,7 @@ def example():
     return json.dumps(flagged)
 
 def getNum(email):
-    if email == "notifications@instructure.com":
+    if "notifications@instructure.com" in email:
         return 0
     return 1
 
