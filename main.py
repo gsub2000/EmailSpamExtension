@@ -8,6 +8,7 @@ import nltk
 from nltk.corpus import stopwords
 import string
 
+nltk.download('stopwords')
 
 app = Flask(__name__)
 cors = CORS(app)
