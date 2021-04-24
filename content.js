@@ -106,7 +106,8 @@ setTimeout(() => {
                     "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(3).textContent,
                     "status" : temp,
                     "reply" : true,
-                    "email" : finalEmail
+                    "email" : finalEmail,
+                    "selected" : false
                 }
                 data.push(dataItem);
             }
@@ -116,7 +117,8 @@ setTimeout(() => {
                     "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(5).textContent,
                     "status" : temp,
                     "reply" : true,
-                    "email" : finalEmail
+                    "email" : finalEmail,
+                    "selected" : false
                 }
                 data.push(dataItem);
             }
@@ -126,7 +128,8 @@ setTimeout(() => {
                     "subject" : div.item(j).getElementsByClassName('afn').item(0).getElementsByTagName('span').item(2).textContent,
                     "status" : temp,
                     "reply" : false,
-                    "email" : finalEmail
+                    "email" : finalEmail,
+                    "selected" : false
                 }
                 data.push(dataItem);
             }

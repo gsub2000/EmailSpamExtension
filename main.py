@@ -10,6 +10,15 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = "Content-Type"
 
+# this is to find what emails in the inbox have been selected
+def mergeEmails(selectedEmail, emails):
+    unique_mails = set()
+    for i in selectedEmail:
+        unique_mails.add(i["email"])
+    for i in emails:
+        if i["email"] in unique_mails:
+            i["selected"] = True
+
 @app.route('/test', methods=["POST"])
 def sendData():
     selected = request.get_json(force=True)['items']
@@ -41,7 +50,22 @@ def example():
 
     # grab the data from the selected database table
     # grab the data from the emails database table
+    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
+    db = client['EmailsData']
+    col = db['Selected']
+    selectedEmails = list(col.find())
+    
+    # emails -> [{'email': hi@uci.edu, 'id': 3, 'selected': false}, {'email': hi@uci.edu, 'id': 2, 'selected': false}]
+    # selectedEmail ->[{'email': hi@uci.edu, 'id': 3}, {'email': hi@uci.edu, 'id': 4}, {'email': hi@uci.edu, 'id': 5}]
+
+    # loop through selected emails and check if email exists in the list of dictionaries called 'emails', if it does, make its element 'selected' = true
+    mergeEmails(selectedEmails, emails)
+    print(emails)
     # merge data
+
+
+
+
     # transform data
     # parse and tokenize data
     # get predictive model
@@ -71,7 +95,7 @@ def example():
 def getNum(email):
     if "notifications@instructure.com" in email:
         return 0
-    return 1
+    return 0
 
 if __name__ == "__main__":
     app.run()
