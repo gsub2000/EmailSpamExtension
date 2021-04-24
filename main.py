@@ -4,20 +4,44 @@ import json
 from sklearn import svm
 import pandas
 import pymongo
+import nltk
+from nltk.corpus import stopwords
+import string
 
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = "Content-Type"
 
+def process(text):
+    # ITEM 1: Take out punctuation
+    no_punc = [ch for ch in text if ch not in string.punctuation]
+    no_punc = ''.join(no_punc)
+
+    # ITEM 2: clean up stopwords
+    my_list = ['im', 'hes', 'shes', 'dont', 'wont', 'theyll']
+
+    no_sw = [word for word in no_punc.split() if word.lower() not in set(stopwords.words('english'))]
+    no_sw = [word for word in no_sw if word.lower() not in my_list]
+
+    # listname = [variable FOR variable IN list_parsed IF variable in/not in/== CONDITION]
+    return set(no_sw)
+
 # this is to find what emails in the inbox have been selected
 def mergeEmails(selectedEmail, emails):
     unique_mails = set()
+    mail_subjects = []
     for i in selectedEmail:
         unique_mails.add(i["email"])
+        mail_subjects.append(process(i["subject"]))
     for i in emails:
         if i["email"] in unique_mails:
             i["selected"] = True
+        for sub in mail_subjects:
+            my_tokens = process(i['subject'])
+            if len(my_tokens.intersection(sub))/len(my_tokens) > 0.5:
+                i['selected'] = True
+                break
 
 @app.route('/test', methods=["POST"])
 def sendData():
@@ -61,13 +85,14 @@ def example():
     # loop through selected emails and check if email exists in the list of dictionaries called 'emails', if it does, make its element 'selected' = true
     mergeEmails(selectedEmails, emails)
     print(emails)
+
+    flagged = [email for email in emails if email['selected'] == True]
     # merge data
-
-
-
 
     # transform data
     # parse and tokenize data
+
+
     # get predictive model
     # make predictions
 
@@ -81,13 +106,13 @@ def example():
     rec_model = svm.SVC()
     rec_model.fit(data, s)
 
-    flagged = []
-    for email in emails:
-        values = [getNum(email['email'])]
-        print(email, values)
-        process = rec_model.predict([values])
-        if process[0] == 'flag':
-            flagged.append(email['email'])
+    # flagged = []
+    # for email in emails:
+    #     values = [getNum(email['email'])]
+    #     print(email, values)
+    #     process = rec_model.predict([values])
+    #     if process[0] == 'flag':
+    #         flagged.append(email['email'])
 
     # print(flagged)
     return json.dumps(flagged)
