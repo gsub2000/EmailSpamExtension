@@ -86,7 +86,7 @@ def example():
     mergeEmails(selectedEmails, emails)
     print(emails)
 
-    flagged = [email for email in emails if email['selected'] == True]
+    flagged = [email['email'] for email in emails if email['selected'] == True]
     # merge data
 
     # transform data
