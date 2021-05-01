@@ -126,6 +126,7 @@ def example():
     flagged = []
     for i in range(len(emails)):
         values = data_list[i].append(checkSelected(i, emails))
+        print(values)
         process = rec_model.predict([values])
         if process[0] == 'flag':
             flagged.append(emails[i]['email'])
