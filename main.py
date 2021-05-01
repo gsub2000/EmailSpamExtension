@@ -124,7 +124,7 @@ def example():
     data_list = getSenderSimilarity(selectedEmails, emails)
 
     flagged = []
-    for i in len(emails):
+    for i in range(len(emails)):
         values = data_list[i].append(checkSelected(i, emails))
         process = rec_model.predict([values])
         if process[0] == 'flag':
