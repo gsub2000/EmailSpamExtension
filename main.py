@@ -84,44 +84,54 @@ def example():
     # selectedEmail ->[{'email': hi@uci.edu, 'id': 3}, {'email': hi@uci.edu, 'id': 4}, {'email': hi@uci.edu, 'id': 5}]
 
     # loop through selected emails and check if email exists in the list of dictionaries called 'emails', if it does, make its element 'selected' = true
+    
+    # flagged = [email['email'] for email in emails if email['selected'] == True]
+
+    def checkSelected(index, emailsList):
+        if emailsList[index]['selected']:
+            return 0
+        else:
+            return 1
+    
+    # find simiarity between sender names
+    def getSenderSimilarity(selectedEmails, emails):
+        unique_mails = set()
+        return_list = []
+        for i in selectedEmails:
+            unique_mails.add(i["sender"])
+        for i in emails:
+            if i["sender"] in unique_mails:
+                return_list.append([0])
+            else:
+                return_list.append([1])
+        return return_list
+                
     mergeEmails(selectedEmails, emails)
-    print(emails)
-
-    flagged = [email['email'] for email in emails if email['selected'] == True]
-    # merge data
-
-    # transform data
-    # parse and tokenize data
-
-
-    # get predictive model
-    # make predictions
-
+    # [subject/email, sender]
+    
     data = [
-        [0],
-        [1]
+        [0, 0],
+        [1, 0],
+        [0, 1],
+        [1, 1]
     ]
 
-    s = ['flag', 'safe']
+    s = ['flag', 'flag', 'flag', 'safe']
 
     rec_model = svm.SVC()
     rec_model.fit(data, s)
 
-    # flagged = []
-    # for email in emails:
-    #     values = [getNum(email['email'])]
-    #     print(email, values)
-    #     process = rec_model.predict([values])
-    #     if process[0] == 'flag':
-    #         flagged.append(email['email'])
+    data_list = getSenderSimilarity(selectedEmails, emails)
+
+    flagged = []
+    for i in len(emails):
+        values = data_list[i].append(checkSelected(i, emails))
+        process = rec_model.predict([values])
+        if process[0] == 'flag':
+            flagged.append(emails[i]['email'])
 
     print(flagged)
     return json.dumps(flagged)
-
-def getNum(email):
-    if "notifications@instructure.com" in email:
-        return 0
-    return 0
 
 if __name__ == "__main__":
     app.run()
