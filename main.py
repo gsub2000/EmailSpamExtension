@@ -122,6 +122,7 @@ def example():
     rec_model.fit(data, s)
 
     data_list = getSenderSimilarity(selectedEmails, emails)
+    print(data_list)
 
     flagged = []
     for i in range(len(emails)):
