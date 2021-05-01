@@ -101,9 +101,9 @@ def example():
             unique_mails.add(i["sender"])
         for i in emails:
             if i["sender"] in unique_mails:
-                return_list.append([0])
+                return_list.append(0)
             else:
-                return_list.append([1])
+                return_list.append(1)
         return return_list
                 
     mergeEmails(selectedEmails, emails)
@@ -126,7 +126,7 @@ def example():
 
     flagged = []
     for i in range(len(emails)):
-        values = data_list[i].append(checkSelected(i, emails))
+        values = [data_list[i],checkSelected(i, emails)]
         print(values)
         process = rec_model.predict([values])
         if process[0] == 'flag':
