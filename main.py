@@ -44,6 +44,15 @@ def mergeEmails(selectedEmail, emails):
                 i['selected'] = True
                 break
 
+@app.route('/clear')
+def clearSelections():
+    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
+    db = client['EmailsData']
+    col = db['Selected']
+    col.drop()
+    return json.dumps("Cleared.")
+
+
 @app.route('/test', methods=["POST"])
 def sendData():
     selected = request.get_json(force=True)['items']

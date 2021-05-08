@@ -2,71 +2,76 @@ console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(request);
-    var selectedList = [];
-    var person = document.getElementsByTagName('tr');
-    for (let i = 4; i < person.length; i++){
-        var item = person.item(i);
-        var found = item.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
-        if (found.length > 0){
-            var div = item.getElementsByClassName('yX xY ');
-            for (let j = 0; j < div.length; j++){
-                var email = div.item(j).getElementsByClassName('bA4');
-                var emailID = email.item(0).innerHTML.split(' ')[3];    
-                
-                var finalEmail = emailID.substring(7, emailID.length-1);
+    if (request == "data"){
+        var selectedList = [];
+        var person = document.getElementsByTagName('tr');
+        for (let i = 4; i < person.length; i++){
+            var item = person.item(i);
+            var found = item.getElementsByClassName("oZ-jc T-Jo J-J5-Ji T-Jo-Jp");
+            if (found.length > 0){
+                var div = item.getElementsByClassName('yX xY ');
+                for (let j = 0; j < div.length; j++){
+                    var email = div.item(j).getElementsByClassName('bA4');
+                    var emailID = email.item(0).innerHTML.split(' ')[3];    
+                    
+                    var finalEmail = emailID.substring(7, emailID.length-1);
 
-                var dataItem = {};
-                var temp = "";
-                if (div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[1].trim() != "unread"){
-                    temp = "read"
-                }
-                else{
-                    temp = div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[0];
-                }
-                
-                if (email.length == 5){
-                    dataItem = {
-                        "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
-                        "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
-                        "status" : temp,
-                        "reply" : true,
-                        "email" : finalEmail
+                    var dataItem = {};
+                    var temp = "";
+                    if (div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[1].trim() != "unread"){
+                        temp = "read"
                     }
-                }
-                else if (email.length == 7){
-                    dataItem = {
-                        "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
-                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
-                        "status" : temp,
-                        "reply" : true,
-                        "email" : finalEmail
+                    else{
+                        temp = div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[0];
                     }
-                }
-                else{
-                    if (temp == "read"){
+                    
+                    if (email.length == 5){
                         dataItem = {
                             "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
                             "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
                             "status" : temp,
-                            "reply" : false,
+                            "reply" : true,
+                            "email" : finalEmail
+                        }
+                    }
+                    else if (email.length == 7){
+                        dataItem = {
+                            "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                                "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
+                            "status" : temp,
+                            "reply" : true,
                             "email" : finalEmail
                         }
                     }
                     else{
-                        dataItem = {
-                            "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
-                            "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[3].trim(),
-                            "status" : temp,
-                            "reply" : false,
-                            "email" : finalEmail
+                        if (temp == "read"){
+                            dataItem = {
+                                "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                                "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[2],
+                                "status" : temp,
+                                "reply" : false,
+                                "email" : finalEmail
+                            }
+                        }
+                        else{
+                            dataItem = {
+                                "sender" : div.item(j).getElementsByClassName('bA4').item(0).textContent,
+                                "subject" : div.item(j).getElementsByClassName('afn').item(0).textContent.split(',')[3].trim(),
+                                "status" : temp,
+                                "reply" : false,
+                                "email" : finalEmail
+                            }
                         }
                     }
+                    selectedList.push(dataItem);
                 }
-                selectedList.push(dataItem);
             }
         }
+        sendResponse({items: selectedList, count: selectedList.length});
     }
-    sendResponse({items: selectedList, count: selectedList.length});
+    else {
+        sendResponse("clear");
+    }
 })
 
 var data = [];
