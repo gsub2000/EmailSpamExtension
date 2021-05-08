@@ -1,12 +1,12 @@
 # EmailSpamExtension
 
-##Project Details:
+## Project Details:
 
 
-##Tech Stack:
+## Tech Stack:
 
 
-##Current Limitations:
+## Current Limitations:
 
 
-##Future Implementations:
+## Future Implementations:
