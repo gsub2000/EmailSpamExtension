@@ -1,13 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var i = document.querySelector('button');
+    var i = document.getElementById('mybtn');
     if (i){
         i.addEventListener("click", onclick, false)
+    }
+
+    var j = document.getElementById('clearbtn');
+    if (j){
+        j.addEventListener("click", onclick2, false)
     }
 
     function onclick () {
         chrome.tabs.query({currentWindow: true, active: true},
             function (tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, 'hi', setChecked)
+                chrome.tabs.sendMessage(tabs[0].id, 'data', setChecked)
+                
+            }    
+        )
+        
+    }
+    function onclick2 () {
+        chrome.tabs.query({currentWindow: true, active: true},
+            function (tabs) {
+                chrome.tabs.sendMessage(tabs[0].id, 'clear', setChecked)
+                
             }    
         )
         

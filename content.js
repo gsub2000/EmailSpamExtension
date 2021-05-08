@@ -1,6 +1,7 @@
 console.log("Hello World");
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log(request);
     var selectedList = [];
     var person = document.getElementsByTagName('tr');
     for (let i = 4; i < person.length; i++){
