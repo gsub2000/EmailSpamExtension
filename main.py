@@ -44,28 +44,7 @@ def mergeEmails(selectedEmail, emails):
                 i['selected'] = True
                 break
 
-@app.route('/clear')
-def clearSelections():
-    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
-    db = client['EmailsData']
-    col = db['Selected']
-    col.drop()
-    return json.dumps("Cleared.")
 
-
-@app.route('/test', methods=["POST"])
-def sendData():
-    selected = request.get_json(force=True)['items']
-
-    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
-    db = client['EmailsData']
-    col = db['Selected']
-    for email in selected:
-        col.insert_one(email)
-
-    return json.dumps('It worked')
-
-#AI MODEL STILL IN PROGRESS (WILL BE UPDATED)
 @app.route('/data', methods=["POST"])
 def example():
     email_data = request.get_json(force=True)['msg']
@@ -124,8 +103,9 @@ def example():
         [0, 1],
         [1, 1]
     ]
-
-    s = ['flag', 'flag', 'flag', 'safe']
+    # CHANGE BACK AFTER TESTING
+    # s = ['flag', 'flag', 'flag', 'safe']
+    s = ['flag', 'flag', 'flag', 'flag']
 
     rec_model = svm.SVC()
     rec_model.fit(data, s)

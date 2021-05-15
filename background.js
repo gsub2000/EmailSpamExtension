@@ -11,7 +11,13 @@ console.log("hey its the bg page");
 chrome.runtime.onMessage.addListener(
     function(request, sender, response) {
         console.log(request); 
-        var emails = JSON.stringify({msg: request})
+        var itemList = [];
+        myStorage = window.localStorage;
+        for(let i = 0; i < myStorage.length; i++){
+            itemList.push(myStorage.getItem(i.toString()) + "\n");
+        }
+
+        var emails = JSON.stringify({msg: request, items: itemList})
 
         $.ajax({
             type: 'POST',
