@@ -47,6 +47,11 @@ def mergeEmails(selectedEmail, emails):
 
 @app.route('/data', methods=["POST"])
 def example():
+
+    print(request.get_json(force=True))
+    print(jsonify(request.get_json(force=True)))
+
+    
     email_data = request.get_json(force=True)['msg']
 
     emails = []
