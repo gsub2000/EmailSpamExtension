@@ -106,7 +106,7 @@ def example():
         except:
             break
 
-                
+    print(selectedEmails)
     mergeEmails(selectedEmails, emails)
         
     # [subject/email, sender]
