@@ -43,6 +43,7 @@ def mergeEmails(selectedEmail, emails):
             if len(my_tokens.intersection(sub))/len(my_tokens) > 0.5:
                 i['selected'] = True
                 break
+
 def checkSelected(index, emailsList):
         if emailsList[index]['selected']:
             return 0
@@ -94,7 +95,18 @@ def example():
     
     # flagged = [email['email'] for email in emails if email['selected'] == True]
 
-    
+    selected = request.get_json(force=True)['items']
+    selectedEmails = []
+    while len(selectedEmails) > 3:
+        try:
+            ind1 = selected.index('{')
+            ind2 = selected.index('}')
+
+            selectedEmails.append( json.loads(selected[ind1:ind2+1]) )
+            selected = selected[ind2+1:]
+        except:
+            break
+
                 
     mergeEmails(selectedEmails, emails)
     # [subject/email, sender]
