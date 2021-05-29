@@ -34,7 +34,6 @@ def mergeEmails(selectedEmail, emails):
         print(i["email"])
         unique_mails.add(i["email"])
         mail_subjects.append(process(i["subject"]))
-    print(unique_mails)
     for i in emails:
         if i["email"] in unique_mails:
             i["selected"] = True
@@ -95,6 +94,10 @@ def example():
         return return_list
 
     selectedEmails = request.get_json(force=True)['items']
+    print(selectedEmails)
+    for i in selectedEmails:
+        print(i)
+    
    
     mergeEmails(selectedEmails, emails)
         
