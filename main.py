@@ -43,12 +43,29 @@ def mergeEmails(selectedEmail, emails):
             if len(my_tokens.intersection(sub))/len(my_tokens) > 0.5:
                 i['selected'] = True
                 break
-
+def checkSelected(index, emailsList):
+        if emailsList[index]['selected']:
+            return 0
+        else:
+            return 1
+    
+# find simiarity between sender names
+def getSenderSimilarity(selectedEmails, emails):
+    unique_mails = set()
+    return_list = []
+    for i in selectedEmails:
+        unique_mails.add(i["sender"])
+    for i in emails:
+        if i["sender"] in unique_mails:
+            return_list.append(0)
+        else:
+            return_list.append(1)
+    return return_list
 
 @app.route('/data', methods=["POST"])
 def example():
-    print(request.get_json(force=True)['msg'])
-    print(request.get_json(force=True)['items'])
+    # print(request.get_json(force=True)['msg'])
+    # print(request.get_json(force=True)['items'])
 
 
     email_data = request.get_json(force=True)['msg']
@@ -65,12 +82,10 @@ def example():
         except:
             break
 
+    print(emails)
+
     # grab the data from the selected database table
     # grab the data from the emails database table
-    client = pymongo.MongoClient("mongodb+srv://gayatrs:CodingMinds!@spambotdata.muyzy.mongodb.net/EmailsData?retryWrites=true&w=majority")
-    db = client['EmailsData']
-    col = db['Selected']
-    selectedEmails = list(col.find())
     
     # emails -> [{'email': hi@uci.edu, 'id': 3, 'selected': false}, {'email': hi@uci.edu, 'id': 2, 'selected': false}]
     # selectedEmail ->[{'email': hi@uci.edu, 'id': 3}, {'email': hi@uci.edu, 'id': 4}, {'email': hi@uci.edu, 'id': 5}]
@@ -79,24 +94,7 @@ def example():
     
     # flagged = [email['email'] for email in emails if email['selected'] == True]
 
-    def checkSelected(index, emailsList):
-        if emailsList[index]['selected']:
-            return 0
-        else:
-            return 1
     
-    # find simiarity between sender names
-    def getSenderSimilarity(selectedEmails, emails):
-        unique_mails = set()
-        return_list = []
-        for i in selectedEmails:
-            unique_mails.add(i["sender"])
-        for i in emails:
-            if i["sender"] in unique_mails:
-                return_list.append(0)
-            else:
-                return_list.append(1)
-        return return_list
                 
     mergeEmails(selectedEmails, emails)
     # [subject/email, sender]
