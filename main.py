@@ -31,11 +31,11 @@ def mergeEmails(selectedEmail, emails):
     unique_mails = set()
     mail_subjects = []
     for i in selectedEmail:
+        print(i["email"])
         unique_mails.add(i["email"])
         mail_subjects.append(process(i["subject"]))
     print(unique_mails)
     for i in emails:
-        print(i["email"])
         if i["email"] in unique_mails:
             i["selected"] = True
         for sub in mail_subjects:
