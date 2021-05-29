@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
 from sklearn import svm
-import pandas
-import pymongo
 import nltk
 from nltk.corpus import stopwords
 import string
@@ -119,7 +117,7 @@ def example():
     ]
     # CHANGE BACK AFTER TESTING
     # s = ['flag', 'flag', 'flag', 'safe']
-    s = ['flag', 'flag', 'flag', 'flag']
+    s = ['flag', 'flag', 'flag', 'safe']
 
     rec_model = svm.SVC()
     rec_model.fit(data, s)
