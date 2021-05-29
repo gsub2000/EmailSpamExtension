@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener(
         var itemList = [];
         myStorage = window.localStorage;
         for(let i = 0; i < myStorage.length; i++){
-            itemList.push(myStorage.getItem(i.toString()) + "\n");
+            itemList.push(myStorage.getItem(i.toString()));
         }
 
         var emails = JSON.stringify({msg: request, items: itemList})
