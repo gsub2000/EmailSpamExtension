@@ -94,19 +94,8 @@ def example():
                 return_list.append(1)
         return return_list
 
-    selected = request.get_json(force=True)['items']
-    selectedEmails = []
-    while len(selected) > 3:
-        try:
-            ind1 = selected.index('{')
-            ind2 = selected.index('}')
-
-            selectedEmails.append( json.loads(selected[ind1:ind2+1]) )
-            selected = selected[ind2+1:]
-        except:
-            break
-
-    print(selectedEmails)
+    selectedEmails = request.get_json(force=True)['items']
+   
     mergeEmails(selectedEmails, emails)
         
     # [subject/email, sender]
