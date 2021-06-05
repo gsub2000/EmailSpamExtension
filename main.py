@@ -94,11 +94,15 @@ def example():
         return return_list
 
     selectedEmails = request.get_json(force=True)['items']
+    newSelectedEmails = []
+
     print(selectedEmails)
     for i in selectedEmails:
         print(i)
+        if i is not None:
+            newSelectedEmails.append(json.loads(i))
     
-   
+    print(newSelectedEmails)
     mergeEmails(selectedEmails, emails)
         
     # [subject/email, sender]

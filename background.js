@@ -15,8 +15,10 @@ chrome.runtime.onMessage.addListener(
         myStorage = window.localStorage;
         for(let i = 0; i < myStorage.length; i++){
             itemList.push(myStorage.getItem(i.toString()));
+            console.log(myStorage.getItem(i.toString()))
         }
-
+        console.log("local storage items")
+        
         var emails = JSON.stringify({msg: request, items: itemList})
 
         $.ajax({

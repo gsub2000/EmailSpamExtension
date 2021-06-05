@@ -29,14 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function setChecked (res) {
         const div = document.createElement('div')
-        div.textContent = "Worked."
-        document.body.appendChild(div)
+        
         itemList = res['items']
         myStorage = window.localStorage;
         for(let i = 0; i < res['count']; i++){
             var key = myStorage.length + i;
             myStorage.setItem(key.toString(), JSON.stringify(itemList[i]))
         }
+        div.textContent = "Worked."
+        document.body.appendChild(div)
         return true;
     }
 
