@@ -96,14 +96,16 @@ def example():
     selectedEmails = request.get_json(force=True)['items']
     newSelectedEmails = []
 
+    print("selected emails start")
     print(selectedEmails)
+
     for i in selectedEmails:
         print(i)
         if i is not None:
             newSelectedEmails.append(json.loads(i))
     
     print(newSelectedEmails)
-    mergeEmails(selectedEmails, emails)
+    mergeEmails(newSelectedEmails, emails)
         
     # [subject/email, sender]
     
@@ -120,7 +122,7 @@ def example():
     rec_model = svm.SVC()
     rec_model.fit(data, s)
 
-    data_list = getSenderSimilarity(selectedEmails, emails)
+    data_list = getSenderSimilarity(newSelectedEmails, emails)
     print(data_list)
 
     flagged = []
