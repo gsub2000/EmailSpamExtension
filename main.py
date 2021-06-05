@@ -38,8 +38,8 @@ def mergeEmails(selectedEmail, emails):
         if i["email"] in unique_mails:
             i["selected"] = True
         for sub in mail_subjects:
-            my_tokens = process(i['subject'])
-            if len(my_tokens.intersection(sub))/len(my_tokens) > 0.5:
+            my_tokens = process(i["subject"])
+            if len(my_tokens) > 0 and len(my_tokens.intersection(sub))/len(my_tokens) > 0.5:
                 i['selected'] = True
                 break
 
