@@ -31,7 +31,6 @@ def mergeEmails(selectedEmail, emails):
     unique_mails = set()
     mail_subjects = []
     for i in selectedEmail:
-        print(i["email"])
         unique_mails.add(i["email"])
         mail_subjects.append(process(i["subject"]))
     for i in emails:
@@ -96,15 +95,10 @@ def example():
     selectedEmails = request.get_json(force=True)['items']
     newSelectedEmails = []
 
-    print("selected emails start")
-    print(selectedEmails)
-
     for i in selectedEmails:
-        print(i)
         if i is not None:
             newSelectedEmails.append(json.loads(i))
     
-    print(newSelectedEmails)
     mergeEmails(newSelectedEmails, emails)
         
     # [subject/email, sender]
@@ -123,7 +117,6 @@ def example():
     rec_model.fit(data, s)
 
     data_list = getSenderSimilarity(newSelectedEmails, emails)
-    print(data_list)
 
     flagged = []
     for i in range(len(emails)):
